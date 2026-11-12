@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>313 Learning Center</title>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#070a14; --surface:#0f1424; --line:#25305a; --text:#e8ecff; --muted:#98a2cf;
+  --a:#6ee7ff; --b:#a78bfa; color-scheme:dark;
+  --display:"Unbounded","Arial Black",sans-serif; --body:"IBM Plex Sans",system-ui,sans-serif;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--text);font:400 1rem/1.65 var(--body)}
+#scene{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+main,header,footer{position:relative;z-index:1}
+nav{display:flex;justify-content:space-between;align-items:center;padding:20px 6vw}
+nav b{font:700 .95rem var(--display)}
+nav a{color:var(--muted);text-decoration:none;margin-left:20px;font-size:.95rem}
+nav a:hover,nav a:focus-visible{color:var(--a)}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--a);outline-offset:3px}
+.hero{min-height:82vh;display:flex;flex-direction:column;justify-content:center;padding:0 6vw;max-width:880px}
+h1{font:700 clamp(2.2rem,7.5vw,5rem)/1.05 var(--display);margin:0 0 20px;letter-spacing:-.02em;
+  background:linear-gradient(100deg,var(--text) 40%,var(--a));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{max-width:34em;color:var(--muted);font-size:1.15rem;margin:0 0 30px}
+.btn{display:inline-block;padding:14px 26px;border-radius:999px;background:var(--a);color:#04101a;font-weight:500;text-decoration:none;margin-right:10px;border:0;font-size:1rem}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}
+section{padding:70px 6vw;max-width:1100px}
+h2{font:700 clamp(1.5rem,4vw,2.3rem)/1.15 var(--display);margin:0 0 10px}
+.sub{color:var(--muted);margin:0 0 32px;max-width:36em}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+details{background:rgba(15,20,36,.82);border:1px solid var(--line);border-radius:18px;padding:22px;backdrop-filter:blur(8px);transition:border-color .2s}
+details[open]{border-color:var(--b)}
+summary{cursor:pointer;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary h3{font:500 1.1rem var(--display);margin:8px 0}
+.tag{font-size:.82rem;color:var(--a)}
+details p{color:var(--muted);margin:8px 0}
+details ul{margin:12px 0 0;padding-left:18px;color:var(--text)}
+details li{margin:4px 0}
+.profile{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center}
+.avatar{width:120px;height:120px;border-radius:50%;background:conic-gradient(from 200deg,var(--a),var(--b),var(--a));display:grid;place-items:center;font:700 2rem var(--display);color:#06101c}
+.stats{display:flex;gap:28px;flex-wrap:wrap;margin-top:16px}
+.stats div{font-size:.9rem;color:var(--muted)}
+.stats strong{display:block;font:700 1.5rem var(--display);color:var(--text)}
+form{display:grid;gap:12px;max-width:460px}
+input,textarea{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:13px;color:var(--text);font:inherit}
+input:focus,textarea:focus{outline:2px solid var(--b);border-color:transparent}
+#msg{color:var(--a);min-height:1.5em;margin:0}
+footer{padding:40px 6vw;color:var(--muted);font-size:.9rem}
+.btn.mini{padding:9px 18px;margin-left:20px;font-size:.9rem}
+.btn.mini:hover,.btn.mini:focus-visible{color:#04101a;filter:brightness(1.1)}
+.wa{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:5;display:flex;align-items:center;gap:10px;padding:14px 20px;border-radius:999px;background:#25d366;color:#05250f;font-weight:500;text-decoration:none;box-shadow:0 6px 24px rgba(37,211,102,.35);transition:transform .15s}
+.wa:hover{transform:translateY(-2px)}
+.wa:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.wa svg{width:24px;height:24px;fill:none;stroke:#05250f;stroke-width:1.8;stroke-linejoin:round}
+@media(max-width:560px){.profile{grid-template-columns:1fr}.wa span{display:none}.wa{padding:15px}nav a:not(.btn){display:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<canvas id="scene" aria-hidden="true"></canvas>
+<header>
+  <nav><b>313 LEARNING CENTER</b><div><a href="#courses">Courses</a><a href="#about">About</a><a href="#contact">Contact</a><a class="btn mini" href="#contact">Enroll now</a></div></nav>
+</header>
+<main>
+  <div class="hero">
+    <h1>Learn it by building it.</h1>
+    <p>Hands-on courses in your subject, taught step by step. Pick a course and start your first lesson today.</p>
+    <div><a class="btn" href="#contact">Enroll now</a><a class="btn ghost" href="#courses">Browse courses</a></div>
+  </div>
+
+  <section id="courses">
+    <h2>Courses</h2>
+    <p class="sub">Tap a course to see what’s inside.</p>
+    <div class="grid">
+      <details><summary><span class="tag">Beginner · 6 weeks</span><h3>Foundations</h3><p>Start from zero and finish with a real project.</p></summary>
+        <ul><li>Setting up your tools</li><li>Core concepts, explained simply</li><li>Your first project</li></ul></details>
+      <details><summary><span class="tag">Intermediate · 8 weeks</span><h3>Build & Ship</h3><p>Turn ideas into working, published projects.</p></summary>
+        <ul><li>Planning a project</li><li>Building with feedback</li><li>Publishing your work</li></ul></details>
+      <details><summary><span class="tag">Advanced · 10 weeks</span><h3>Studio Lab</h3><p>Weekly live sessions and mentor reviews.</p></summary>
+        <ul><li>Live critique sessions</li><li>Portfolio-grade capstone</li><li>Career guidance</li></ul></details>
+    </div>
+  </section>
+
+  <section id="about">
+    <h2>About me</h2>
+    <div class="profile">
+      <div class="avatar" aria-hidden="true">313</div>
+      <div>
+        <p class="sub" style="margin:0">Write two sentences here about your background and why you teach. Students want to know who is guiding them.</p>
+        <div class="stats"><div><strong>500+</strong>students taught</div><div><strong>12</strong>years of experience</div><div><strong>4.9</strong>average rating</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Ask a question</h2>
+    <p class="sub">Not sure which course fits? Send a message and I’ll reply within two days.</p>
+    <form id="f"><input name="n" placeholder="Your name" required aria-label="Your name"><input type="email" name="e" placeholder="Email" required aria-label="Email"><textarea name="m" rows="4" placeholder="Your message" required aria-label="Message"></textarea>
+      <button class="btn" type="submit">Send message</button><p id="msg" role="status"></p></form>
+  </section>
+</main>
+<footer>© 2026 313 Learning Center</footer>
+
+<a class="wa" href="https://wa.me/0000000000?text=Hi%20313%20Learning%20Center%2C%20I%20want%20to%20know%20more%20about%20your%20courses." target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"/><path d="M8.5 7.5c0 4 4 8 8 8l1.2-1.8-2.2-1.3-1 .8c-1.2-.5-2.5-1.8-3-3l.8-1-1.3-2.2z"/></svg><span>Chat on WhatsApp</span></a>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+  var cv=document.getElementById('scene');
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  try{
+    var r=new THREE.WebGLRenderer({canvas:cv,alpha:true,antialias:true});
+    r.setPixelRatio(Math.min(devicePixelRatio,2));
+    var s=new THREE.Scene(),c=new THREE.PerspectiveCamera(50,1,.1,100);c.position.z=7;
+    var g=new THREE.Group();s.add(g);
+    var knot=new THREE.Mesh(new THREE.TorusKnotGeometry(1.7,.45,160,20),new THREE.MeshBasicMaterial({color:0x6ee7ff,wireframe:true,transparent:true,opacity:.28}));
+    var core=new THREE.Mesh(new THREE.IcosahedronGeometry(.9,1),new THREE.MeshBasicMaterial({color:0xa78bfa,wireframe:true,transparent:true,opacity:.7}));
+    g.add(knot,core);
+    var n=700,p=new Float32Array(n*3);
+    for(var i=0;i<n;i++){var rad=4+Math.random()*5,t=Math.random()*6.283,u=Math.acos(2*Math.random()-1);
+      p[i*3]=rad*Math.sin(u)*Math.cos(t);p[i*3+1]=rad*Math.sin(u)*Math.sin(t);p[i*3+2]=rad*Math.cos(u)-2;}
+    var gg=new THREE.BufferGeometry();gg.setAttribute('position',new THREE.BufferAttribute(p,3));
+    var pts=new THREE.Points(gg,new THREE.PointsMaterial({color:0xe8ecff,size:.03}));s.add(pts);
+    var mx=0,my=0,sy=0;
+    addEventListener('pointermove',function(e){mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5});
+    addEventListener('scroll',function(){sy=scrollY/innerHeight});
+    function size(){var w=innerWidth,h=innerHeight;r.setSize(w,h,false);c.aspect=w/h;c.updateProjectionMatrix();g.position.x=w>760?2.4:0;g.scale.setScalar(w>760?1:.75)}
+    addEventListener('resize',size);size();
+    function tick(t){
+      var k=reduce?0:t*.0003;
+      g.rotation.y+=((mx*1.2+k+sy*.8)-g.rotation.y)*.05;
+      g.rotation.x+=((my*.8+sy*.4)-g.rotation.x)*.05;
+      core.rotation.y=-k*3;pts.rotation.y=k*.4;
+      g.position.y=sy*1.5;
+      r.render(s,c);
+      if(!reduce)requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }catch(e){cv.style.display='none'}
+  document.getElementById('f').addEventListener('submit',function(e){
+    e.preventDefault();document.getElementById('msg').textContent='Message ready. Connect a form service to send it.';this.reset();
+  });
+})();
+</script>
+</body>
+</html>
